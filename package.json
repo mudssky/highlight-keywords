@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "dev": "webpack --config ./webpack.config.js ",
-    "start": "webpack serve --config ./webpack.config.js",
+    "dev": "webpack --config ./webpack.config.js",
+    "start": "webpack --config ./webpack.config.js --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
