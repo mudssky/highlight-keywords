@@ -1,5 +1,11 @@
 // 因为是用的@require 方法引用脚本，就和页面引入js一样是会阻塞线程的导致页面加载不出，这边onload等页面加载完再执行
-window.onload = function () {
+// window.onload = function () {
+//   setTimeout(() => {
+//     main()
+//   }, 3000)
+// }
+
+;(function () {
   interface Rule {
     keyword: string
     styleText: string
@@ -50,4 +56,4 @@ window.onload = function () {
     )
   }
   document.body.innerHTML = lastHtml
-}
+})()
