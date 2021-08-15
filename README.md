@@ -38,10 +38,12 @@ https://greasyfork.org/zh-CN/scripts/428302-hightlight-keywords
 
 只需要修改脚本中的RuleList,添加你想更改样式的项目即可，
 
-脚本里面默认的是sukebei.nyaa.si这个网站，  如果你添加了新的网站，注意在脚本的头部用@include添加上网址才会生效。
+脚本里面默认的是sukebei.nyaa.si这个网站，  如果你添加了新的网站，**注意在脚本的头部用@include添加上网址才会生效。**
 
-还有一个问题是对那些使用vue,react之类使用ajax动态加载页面内容的类型的网页并没有适配可能并不会生效。
+还有一个问题是对那些使用vue,react之类使用ajax动态加载页面内容的类型的网页并没有适配可能并不会生效。(比如zhihu,bilibili)
 ```javascript
+// @include       *://sukebei.nyaa.si/
+//...
 var RuleList = [
         {
             keyword: '成年コミック',
