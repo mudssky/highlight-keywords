@@ -21,6 +21,18 @@
       styleText: 'background:gold;',
       matchUrl: 'sukebei.nyaa.si',
     },
+    {
+      keyword: '月刊',
+      // color: 'yellow',
+      styleText: 'background:red;',
+      matchUrl: 'nyaa.si',
+    },
+    {
+      keyword: '週刊',
+      // color: 'yellow',
+      styleText: 'background:gold;',
+      matchUrl: 'nyaa.si',
+    },
   ]
 
   // 筛选匹配当前页面的规则
@@ -52,8 +64,32 @@
     )
     lastHtml = currentHtml.replaceAll(
       htmlPattern,
-      `$1<em style="${matchedRuleList[i].styleText}">${matchedRuleList[i].keyword}</em>$2`
+      `$1<em data-hightlight="true" style="${matchedRuleList[i].styleText}">${matchedRuleList[i].keyword}</em>$2`
     )
   }
   document.body.innerHTML = lastHtml
+  document.body.insertAdjacentHTML(
+    'beforeend',
+    `<button id="hightlight-batchopen" style="position:fixed;top:30vh;">
+  批量打开高亮链接
+  </button>`
+  )
+  const bacthOpenBtn = document.querySelector('#hightlight-batchopen')
+  ;(bacthOpenBtn as HTMLButtonElement).onclick = () => {
+    // alert('批量打开')
+    let excuteStartTime = 0
+    const delay = 800
+    document.querySelectorAll('a em[data-hightlight=true]').forEach((emDom) => {
+      // window.open((emDom.parentNode as HTMLLinkElement).href, '_blank')
+      const url = (emDom.parentNode as HTMLLinkElement).href
+      setTimeout(() => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        GM_openInTab(url)
+      }, excuteStartTime)
+      excuteStartTime += delay
+
+      // console.log('2w', url)
+    })
+  }
 })()
