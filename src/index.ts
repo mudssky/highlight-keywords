@@ -78,10 +78,16 @@
   ;(bacthOpenBtn as HTMLButtonElement).onclick = () => {
     // alert('批量打开')
     let excuteStartTime = 0
-    const delay = 800
+    const delay = 1000
+    const urlList: string[] = []
     document.querySelectorAll('a em[data-hightlight=true]').forEach((emDom) => {
+      const link = (emDom.parentNode as HTMLLinkElement).href
+      if (link && !urlList.includes(link)) urlList.push(link)
+    })
+    console.log('open url', urlList)
+
+    urlList.forEach((url) => {
       // window.open((emDom.parentNode as HTMLLinkElement).href, '_blank')
-      const url = (emDom.parentNode as HTMLLinkElement).href
       setTimeout(() => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
