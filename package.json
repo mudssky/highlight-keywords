@@ -1,34 +1,32 @@
 {
-  "name": "userscript-typescript-only",
+  "name": "highlight-keywords",
+  "author": "mudssky",
+  "license": "MIT",
+  "private": true,
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "type": "module",
+  "homepage": "https://github.com/mudssky/highlight-keywords",
+  "description": "高亮关键词,可设置关键词的样式,支持正则匹配",
   "scripts": {
-    "build": "webpack",
-    "dev": "webpack --config ./webpack.config.js",
-    "start": "webpack --config ./webpack.config.js --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@types/webpack": "^5.28.0",
-    "@typescript-eslint/eslint-plugin": "^4.27.0",
-    "@typescript-eslint/parser": "^4.27.0",
-    "clean-webpack-plugin": "^4.0.0-alpha.0",
-    "eslint": "^7.28.0",
-    "eslint-config-prettier": "^8.3.0",
-    "fork-ts-checker-webpack-plugin": "^6.2.10",
-    "friendly-errors-webpack-plugin": "^1.7.0",
-    "html-webpack-plugin": "^5.3.1",
-    "prettier": "^2.3.1",
-    "ts-loader": "^9.2.3",
-    "typescript": "^4.3.4",
-    "webpack": "^5.39.1",
-    "webpack-cli": "^4.7.2",
-    "webpack-dev-server": "^3.11.2"
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "lodash": "^4.17.21"
+    "vue": "^3.2.47"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.0.0",
+    "@vitejs/plugin-vue-jsx": "^3.0.0",
+    "@vue/babel-plugin-jsx": "^1.1.1",
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.21",
+    "prettier": "^2.8.4",
+    "rome": "^11.0.0",
+    "tailwindcss": "^3.2.7",
+    "typescript": "^4.9.5",
+    "vite": "^4.1.4",
+    "vite-plugin-monkey": "^2.12.1",
+    "vue-tsc": "^1.1.7"
   }
 }

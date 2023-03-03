@@ -1,0 +1,25 @@
+
+############基础配置################
+root = true
+charset = utf-8
+indent_style = space
+end_of_line = lf
+insert_final_newline = true
+
+[!*.md]
+# 是否删除换行符之前的空白字符
+# markdown文件换行符之前是需要空白字符的
+trim_trailing_whitespace = true
+
+
+# 针对前端的配置
+[*.{js,ts,vue,tsx,jsx,html,css,scss}]
+indent_size = 2
+
+
+# 针对python的配置
+[*.py]
+# 针对python的4行缩进
+indent_style = space
+indent_size = 4
+
