@@ -53,6 +53,7 @@
     "swaggo",
     "sysinfo",
     "tailwindcss",
+    "unplugin",
     "userlist",
     "USERPROFILE",
     "videoplay",
@@ -63,5 +64,5 @@
   // This is useful for offensive words and common spelling errors.
   // For example "hte" should be "the"
   "flagWords": [],
-  "allowCompoundWords": true,
+  "allowCompoundWords": true
 }

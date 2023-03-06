@@ -1,7 +1,8 @@
 import { createApp } from 'vue'
 import './style.css'
-import App from './App'
-import { GM_registerMenuCommand } from '$'
+
+import App from './App.vue'
+
 const app = createApp(App)
 const appContainer = (() => {
   const app = document.createElement('div')
@@ -9,7 +10,4 @@ const appContainer = (() => {
   return app
 })()
 
-function openPanel() {
-  app.mount(appContainer)
-}
-GM_registerMenuCommand('打开配置面板', openPanel)
+app.mount(appContainer)
