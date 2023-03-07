@@ -9,16 +9,18 @@
 			</el-form-item>
 		</el-form>
 		<el-row justify="end">
-			<el-button @click="handleUpdateConfig">更新配置</el-button>
+			<el-space>
+				<el-button @click="handleCopyJson">复制json</el-button>
+				<el-button @click="handleUpdateConfig" type="primary">更新配置</el-button>
+			</el-space>
 		</el-row>
 	</el-dialog>
 </template>
 
 <script lang="ts" name="app" setup>
-import { GM_registerMenuCommand } from '$';
+import { GM_getValue, GM_registerMenuCommand, GM_setClipboard, GM_setValue } from '$';
 import { computed, onMounted, reactive, ref } from 'vue'
 import Ajv from 'ajv'
-import { getLocalStorageJSON, setLocalStorageJSON } from '../../util/util';
 import { ElMessage } from 'element-plus'
 
 interface RuleItem {
@@ -59,11 +61,14 @@ const form = reactive({
 	`
 })
 const matchedRuleList = computed(() => {
+	console.log({ 'fil': ruleList.value })
 	return ruleList.value.filter((rule: RuleItem) => {
 		var urlPattern = new RegExp(rule.matchUrl);
 		return urlPattern.test(window.location.href)
 	})
 })
+
+
 const matchedKeywords = computed(() => {
 	const keywordsLists = matchedRuleList.value.map((item) => {
 		return item.keywords
@@ -72,9 +77,15 @@ const matchedKeywords = computed(() => {
 	return [...new Set(keywordsLists.flat())];
 })
 
+function handleCopyJson() {
+	GM_setClipboard(form.configJson, "text")
+}
 
 function loadRuleList() {
-	ruleList.value = getLocalStorageJSON(configName) ?? []
+	// const vv: any = []
+	const vv = GM_getValue(configName, [])
+	ruleList.value = vv
+	console.log(vv)
 	form.configJson = JSON.stringify(ruleList.value)
 }
 function handleOpenPanel() {
@@ -110,7 +121,8 @@ function handleUpdateConfig() {
 		return
 	}
 	ruleList.value = list
-	setLocalStorageJSON(configName, form.configJson)
+	GM_setValue(configName, list)
+	// setLocalStorageJSON(configName, form.configJson)
 	handleClose()
 
 }

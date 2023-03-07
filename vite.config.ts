@@ -28,7 +28,13 @@ export default defineConfig(({ mode }) => ({
         version: packageJson.version,
         license: packageJson.license,
         supportURL: 'https://github.com/mudssky/highlight-keywords/issues',
-        grant: ['GM.openInTab', 'GM.registerMenuCommand'],
+        grant: [
+          'GM.openInTab',
+          'GM.registerMenuCommand',
+          'GM.setClipboard',
+          'GM.setValue',
+          'GM.getValue',
+        ],
         'run-at': 'document-idle',
       },
       build: {
