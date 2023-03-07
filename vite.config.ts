@@ -8,7 +8,7 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import monkey, { cdn } from 'vite-plugin-monkey'
 import packageJson from './package.json'
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [
     vue(),
     AutoImport({
@@ -35,7 +35,10 @@ export default defineConfig({
         externalGlobals: {
           vue: cdn.jsdelivr('Vue', 'dist/vue.global.prod.js'),
         },
+        externalResource: {
+          'element-plus/dist/index.css': cdn.jsdelivr(),
+        },
       },
     }),
   ],
-})
+}))

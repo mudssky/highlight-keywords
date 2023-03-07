@@ -31,12 +31,15 @@ const configName = 'hightlight-config'
 
 const schema = {
 	type: "array",
-	properties: {
-		keywords: { type: "array" },
-		matchUrl: { type: "string" }
-	},
-	required: ["keywords", "matchUrl"],
-	additionalProperties: false
+	items: {
+		type: "object",
+		properties: {
+			keywords: { type: "array" },
+			matchUrl: { type: "string" }
+		},
+		required: ["keywords", "matchUrl"],
+		additionalProperties: false
+	}
 }
 
 const dialogVisible = ref(false)
@@ -84,14 +87,27 @@ function handleClose() {
 function handleUpdateConfig() {
 	const ajv = new Ajv()
 	const validate = ajv.compile(schema)
+	let list: RuleItem[]
+	try {
+		list = JSON.parse(form.configJson)
+		console.log({ list })
+	} catch (error) {
+		ElMessage({
+			type: 'warning',
+			message: 'json解析错误'
+		})
+		return
+	}
 
-	const list: RuleItem[] = JSON.parse(form.configJson)
 	const valid = validate(list)
+	console.log({ valid });
 	if (!valid) {
 		ElMessage({
 			type: 'warning',
-			message: 'json校验失败'
+			message: 'json校验失败:' + validate.errors?.[0].message
 		})
+		console.error(validate.errors)
+		return
 	}
 	ruleList.value = list
 	setLocalStorageJSON(configName, form.configJson)
