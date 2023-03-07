@@ -22,6 +22,7 @@ import { GM_getValue, GM_registerMenuCommand, GM_setClipboard, GM_setValue } fro
 import { computed, onMounted, reactive, ref } from 'vue'
 import Ajv from 'ajv'
 import { ElMessage } from 'element-plus'
+import { cleanKeywords, highlightKeyword } from '../../util/tools';
 
 interface RuleItem {
 	keywords: string[]
@@ -30,7 +31,7 @@ interface RuleItem {
 
 
 const configName = 'hightlight-config'
-
+// 校验json的schema
 const schema = {
 	type: "array",
 	items: {
@@ -47,9 +48,15 @@ const schema = {
 const dialogVisible = ref(false)
 const ruleList = ref<RuleItem[]>([])
 
+const pageState = reactive<{
+	globalStyle?: HTMLStyleElement
+}>({
+	globalStyle: undefined
+})
 const form = reactive({
 	configJson: "",
-	highlightStyle: 'background:gold;',
+	defaultHightlightStyle: 'background:gold;color:black;',
+	highlightStyle: 'background:gold;color:black;',
 	placeholder: `//示例：
 	[
         {
@@ -77,6 +84,42 @@ const matchedKeywords = computed(() => {
 	return [...new Set(keywordsLists.flat())];
 })
 
+/**
+ * 生成高亮的伪元素
+ * @param styleText 
+ * @param customHighlightname 
+ */
+// function generateHighlightStyle(styleText: string, customHighlightname = 'highlight-keywords') {
+// 	return `::highlight(${customHighlightname}){${styleText}}`
+// }
+
+/**
+ * 通过属性选择器实现高亮
+ */
+function generateHighlightStyle(styleText: string) {
+	return `[data-highlight="yes"]{${styleText}}`
+}
+/**
+ * 组件挂载时，加载高亮的style标签
+ */
+function loadGlobalStyle() {
+	let style = document.createElement('style')
+	style.textContent = generateHighlightStyle(form.defaultHightlightStyle)
+	document.head.appendChild(style);
+	pageState.globalStyle = style
+}
+
+/**
+ * 更新高亮的style标签的高亮样式
+ * @param styleText 
+ */
+function updateHighlightStyle(styleText: string) {
+	if (pageState.globalStyle) {
+		pageState.globalStyle.textContent = generateHighlightStyle(styleText)
+	}
+}
+
+
 function handleCopyJson() {
 	GM_setClipboard(form.configJson, "text")
 }
@@ -99,6 +142,7 @@ function handleUpdateConfig() {
 	const ajv = new Ajv()
 	const validate = ajv.compile(schema)
 	let list: RuleItem[]
+
 	try {
 		list = JSON.parse(form.configJson)
 		console.log({ list })
@@ -121,6 +165,7 @@ function handleUpdateConfig() {
 		return
 	}
 	ruleList.value = list
+	updateHighlightStyle(form.highlightStyle)
 	GM_setValue(configName, list)
 	// setLocalStorageJSON(configName, form.configJson)
 	handleClose()
@@ -131,23 +176,22 @@ function highlightMatchedKeywords() {
 	if (matchedKeywords.value.length < 1) {
 		return
 	}
-	let lastHtml = document.body.innerHTML;
-
-	for (let keyword of matchedKeywords.value) {
-		// 作为中间变量，每次循环从上次的结果基础上进行。
-		var currentHtml = lastHtml;
-		var htmlPattern = new RegExp("(<[^>]+>[^<>]*?)" + keyword + "([^<>]*?<[^>]+>)", 'g');
-		lastHtml = currentHtml.replaceAll(htmlPattern, "$1<span style=\"" + form.highlightStyle + "\">" + keyword + "</span>$2");
-	}
-
-	document.body.innerHTML = lastHtml
-
+	const [pattern, _] = cleanKeywords(matchedKeywords.value)
+	highlightKeyword(document.body, pattern)
 }
 
+
+
+
 onMounted(() => {
+
 	// 挂载时从本地读取配置
 	loadRuleList()
-	highlightMatchedKeywords()
+	// 如果没有匹配到规则列表，不需要加载全局样式
+	if (matchedKeywords.value.length > 0) {
+		loadGlobalStyle()
+		highlightMatchedKeywords()
+	}
 	GM_registerMenuCommand('打开配置面板', handleOpenPanel)
 })
 
