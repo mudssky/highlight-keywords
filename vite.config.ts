@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-// elementui自动引入
+// elementUi自动引入
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
@@ -29,11 +29,11 @@ export default defineConfig(({ mode }) => ({
         license: packageJson.license,
         supportURL: 'https://github.com/mudssky/highlight-keywords/issues',
         grant: [
-          'GM.openInTab',
-          'GM.registerMenuCommand',
-          'GM.setClipboard',
-          'GM.setValue',
-          'GM.getValue',
+          // 'GM.openInTab',
+          'GM_registerMenuCommand',
+          'GM_setClipboard',
+          'GM_setValue',
+          'GM_getValue',
         ],
         'run-at': 'document-idle',
       },

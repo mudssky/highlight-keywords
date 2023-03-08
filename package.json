@@ -3,7 +3,7 @@
   "author": "mudssky",
   "license": "MIT",
   "private": true,
-  "version": "1.0.0",
+  "version": "2.0.0",
   "type": "module",
   "homepage": "https://github.com/mudssky/highlight-keywords",
   "description": "高亮关键词,可设置关键词的样式,支持正则匹配",
@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "ajv": "^8.12.0",
-    "element-plus": "^2.2.33",
+    "element-plus": "^2.2.35",
     "vue": "^3.2.47"
   },
   "devDependencies": {
@@ -25,10 +25,10 @@
     "rome": "^11.0.0",
     "tailwindcss": "^3.2.7",
     "typescript": "^4.9.5",
-    "unplugin-auto-import": "^0.15.0",
-    "unplugin-vue-components": "^0.24.0",
+    "unplugin-auto-import": "^0.15.1",
+    "unplugin-vue-components": "^0.24.1",
     "vite": "^4.1.4",
     "vite-plugin-monkey": "^2.12.1",
-    "vue-tsc": "^1.1.7"
+    "vue-tsc": "^1.2.0"
   }
 }

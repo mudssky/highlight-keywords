@@ -1,18 +1,37 @@
-# Vue 3 + TypeScript + Vite
+# highlight-keywords
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
 
-## Recommended IDE Setup
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## 项目运行方法
 
-## Type Support For `.vue` Imports in TS
+```shell
+# 安装依赖
+pnpm i
+# 打包脚本
+pnpm build
+```
+也可以到我的脚本发布页安装
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+https://greasyfork.org/zh-CN/scripts/428302-hightlight-keywords
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+## 使用方法
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+脚本的作用是高亮关键词。
+
+遍历页面所有的文本节点，通过修改标签的方法添加样式
+
+在油猴脚本的菜单里面，打开配置面板，就可以配置脚本，配置信息使用油猴脚本的存储存在浏览器本地
+
+配置文件的json需要满足下面的格式。
+
+```json
+
+[
+  {
+    "keywords": ["watch"],
+    "matchUrl": "cn.vuejs.org"
+  }
+]
+
+```
+
