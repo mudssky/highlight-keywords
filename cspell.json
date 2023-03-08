@@ -41,6 +41,7 @@
     "newlist",
     "newpath",
     "nplayer",
+    "nyaa",
     "Qrcode",
     "qrterminal",
     "rawurl",
@@ -50,18 +51,22 @@
     "rootpath",
     "samber",
     "sizedict",
+    "sukebei",
     "swaggo",
     "sysinfo",
     "tailwindcss",
+    "unplugin",
     "userlist",
     "USERPROFILE",
     "videoplay",
+    "vuejs",
     "watchexec",
-    "webpermission"
+    "webpermission",
+    "zhihu"
   ],
   // flagWords - list of words to be always considered incorrect
   // This is useful for offensive words and common spelling errors.
   // For example "hte" should be "the"
   "flagWords": [],
-  "allowCompoundWords": true,
+  "allowCompoundWords": true
 }

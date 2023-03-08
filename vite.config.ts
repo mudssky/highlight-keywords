@@ -1,14 +1,21 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+// elementUi自动引入
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+
 import monkey, { cdn } from 'vite-plugin-monkey'
 import packageJson from './package.json'
-import vueJsx from '@vitejs/plugin-vue-jsx'
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [
     vue(),
-    vueJsx({
-      // options are passed on to @vue/babel-plugin-jsx
+    AutoImport({
+      resolvers: [ElementPlusResolver()],
+    }),
+    Components({
+      resolvers: [ElementPlusResolver()],
     }),
     monkey({
       entry: 'src/main.ts',
@@ -21,14 +28,23 @@ export default defineConfig({
         version: packageJson.version,
         license: packageJson.license,
         supportURL: 'https://github.com/mudssky/highlight-keywords/issues',
-        grant: ['GM.openInTab', 'GM.registerMenuCommand'],
+        grant: [
+          // 'GM.openInTab',
+          'GM_registerMenuCommand',
+          'GM_setClipboard',
+          'GM_setValue',
+          'GM_getValue',
+        ],
         'run-at': 'document-idle',
       },
       build: {
         externalGlobals: {
           vue: cdn.jsdelivr('Vue', 'dist/vue.global.prod.js'),
         },
+        externalResource: {
+          'element-plus/dist/index.css': cdn.jsdelivr(),
+        },
       },
     }),
   ],
-})
+}))

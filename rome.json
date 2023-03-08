@@ -25,6 +25,8 @@
       "a11y": {
         "useKeyWithClickEvents": "off"
       }
-    }
+    },
+
+    "ignore": ["dist/*.js"]
   }
 }

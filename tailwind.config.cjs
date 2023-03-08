@@ -1,12 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./src/**/*.{js,ts,jsx,tsx}'],
+  content: ['./src/**/*.{vue,js,ts,jsx,tsx}', './index.html'],
   theme: {
     extend: {},
   },
   plugins: [],
   // 添加前缀，避免油猴脚本的样式污染到页面
-  // prefix: 'hl',
+  // prefix: 'tw-',
   corePlugins: {
     // 禁用初始化样式，避免污染页面
     preflight: false,
