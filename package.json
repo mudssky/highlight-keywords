@@ -13,7 +13,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "ajv": "^8.12.0",
     "element-plus": "^2.2.35",
     "vue": "^3.2.47"
   },
@@ -28,7 +27,7 @@
     "unplugin-auto-import": "^0.15.1",
     "unplugin-vue-components": "^0.24.1",
     "vite": "^4.1.4",
-    "vite-plugin-monkey": "^2.12.1",
+    "vite-plugin-monkey": "3.0.0-alpha.0",
     "vue-tsc": "^1.2.0"
   }
 }
