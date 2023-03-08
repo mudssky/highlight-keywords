@@ -1,11 +1,19 @@
 <template>
 	<el-dialog v-model="dialogVisible" title="配置面板" width="30%" :before-close="handleClose" class="min-h-[400px]">
-		<el-form :model="form">
-			<el-form-item label="高亮样式">
+		<el-form :model="form" ref="ruleFormRef">
+			<el-form-item label="高亮样式" prop="highlightStyle" :rules="[
+				{
+					required: true,
+					whitespace: true,
+					message: '请输入高亮样式',
+					trigger: 'change'
+				}
+			]">
 				<el-input v-model="form.highlightStyle" />
 			</el-form-item>
 			<el-form-item label="配置">
-				<el-input v-model="form.configJson" :placeholder="form.placeholder" type="textarea" autosize />
+				<el-input v-model="form.configJson" :placeholder="form.placeholder" type="textarea"
+					:autosize="{ minRows: 5, maxRows: 10 }" />
 			</el-form-item>
 		</el-form>
 		<el-row justify="end">
@@ -20,31 +28,16 @@
 <script lang="ts" name="app" setup>
 import { GM_getValue, GM_registerMenuCommand, GM_setClipboard, GM_setValue } from '$';
 import { computed, onMounted, reactive, ref } from 'vue'
-import Ajv from 'ajv'
-import { ElMessage } from 'element-plus'
+import { ElMessage, FormInstance } from 'element-plus'
 import { cleanKeywords, highlightKeyword } from '../../util/tools';
 
 interface RuleItem {
 	keywords: string[]
 	matchUrl: string
 }
-
-
 const configName = 'hightlight-config'
-// 校验json的schema
-const schema = {
-	type: "array",
-	items: {
-		type: "object",
-		properties: {
-			keywords: { type: "array" },
-			matchUrl: { type: "string" }
-		},
-		required: ["keywords", "matchUrl"],
-		additionalProperties: false
-	}
-}
 
+const ruleFormRef = ref<FormInstance>()
 const dialogVisible = ref(false)
 const ruleList = ref<RuleItem[]>([])
 
@@ -138,9 +131,37 @@ function handleOpenPanel() {
 function handleClose() {
 	dialogVisible.value = false
 }
-function handleUpdateConfig() {
-	const ajv = new Ajv()
-	const validate = ajv.compile(schema)
+/**
+ * ajv库打包体积太大了,改用手动校验了
+ * @param configList 
+ */
+function validateConfig(configList: any): [boolean, string] {
+	let errorMessage = ''
+	if (!Array.isArray(configList)) {
+		return [false, errorMessage]
+	}
+	for (const property of ['keywords', 'matchUrl']) {
+		if (configList.some((item) => {
+			return !(item?.[property] ?? false)
+		})) {
+			// 存在不满足的属性
+
+			errorMessage = `${property} 属性是必须的`
+			return [false, errorMessage]
+		}
+	}
+	return [true, errorMessage]
+}
+
+async function handleUpdateConfig() {
+	await ruleFormRef.value?.validate((valid, fields) => {
+		if (valid) {
+			console.log('submit!')
+		} else {
+			console.log('error submit!', fields)
+		}
+	}
+	)
 	let list: RuleItem[]
 
 	try {
@@ -153,15 +174,12 @@ function handleUpdateConfig() {
 		})
 		return
 	}
-
-	const valid = validate(list)
-	console.log({ valid });
+	const [valid, errorMessage] = validateConfig(list)
 	if (!valid) {
 		ElMessage({
 			type: 'warning',
-			message: 'json校验失败:' + validate.errors?.[0].message
+			message: errorMessage
 		})
-		console.error(validate.errors)
 		return
 	}
 	ruleList.value = list
@@ -169,8 +187,9 @@ function handleUpdateConfig() {
 	GM_setValue(configName, list)
 	// setLocalStorageJSON(configName, form.configJson)
 	handleClose()
-
 }
+
+
 function highlightMatchedKeywords() {
 	// console.log({ matchedKeywords });
 	if (matchedKeywords.value.length < 1) {

@@ -13,6 +13,6 @@ import './style.css'
 // 改成cdn导入了
 import 'element-plus/dist/index.css'
 const config = reactive({
-	zIndex: 1
+	zIndex: 100
 })
 </script>
