@@ -9,7 +9,7 @@
 // @homepage     https://github.com/mudssky/highlight-keywords
 // @homepageURL  https://github.com/mudssky/highlight-keywords
 // @supportURL   https://github.com/mudssky/highlight-keywords/issues
-// @updateURL    https://github.com/mudssky/chatgpt-helper/blob/main/dist/highlight-keywords.user.js
+// @updateURL    https://github.com/mudssky/highlight-keywords/blob/main/dist/highlight-keywords.user.js
 // @match        *://*/*
 // @exclude      *://element-plus*
 // @require      https://cdn.jsdelivr.net/npm/vue@3.2.47/dist/vue.global.prod.js
