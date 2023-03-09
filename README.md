@@ -12,7 +12,7 @@ pnpm build
 ```
 也可以到我的脚本发布页安装
 
-https://greasyfork.org/zh-CN/scripts/428302-hightlight-keywords
+https://greasyfork.org/zh-CN/scripts/461411-highlight-keywords
 
 ## 使用方法
 

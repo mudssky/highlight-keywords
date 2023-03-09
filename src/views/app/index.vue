@@ -29,7 +29,7 @@
 import { GM_getValue, GM_registerMenuCommand, GM_setClipboard, GM_setValue } from '$';
 import { computed, onMounted, reactive, ref } from 'vue'
 import { ElMessage, FormInstance } from 'element-plus'
-import { cleanKeywords, highlightKeyword } from '../../util/tools';
+import { cleanKeywords, closeHighlight, highlightKeyword } from '../../util/tools';
 
 interface RuleItem {
 	keywords: string[]
@@ -140,6 +140,12 @@ function validateConfig(configList: any): [boolean, string] {
 	if (!Array.isArray(configList)) {
 		return [false, errorMessage]
 	}
+	if (configList.some((item) => {
+		return typeof item !== 'object'
+	})) {
+		errorMessage = '配置项格式不对'
+		return [false, errorMessage]
+	}
 	for (const property of ['keywords', 'matchUrl']) {
 		if (configList.some((item) => {
 			return !(item?.[property] ?? false)
@@ -185,7 +191,11 @@ async function handleUpdateConfig() {
 	ruleList.value = list
 	updateHighlightStyle(form.highlightStyle)
 	GM_setValue(configName, list)
-	// setLocalStorageJSON(configName, form.configJson)
+	highlightMatchedKeywords()
+	ElMessage({
+		type: 'success',
+		message: '配置更新成功'
+	})
 	handleClose()
 }
 
@@ -195,7 +205,9 @@ function highlightMatchedKeywords() {
 	if (matchedKeywords.value.length < 1) {
 		return
 	}
+
 	const [pattern, _] = cleanKeywords(matchedKeywords.value)
+	closeHighlight(document.body, pattern)
 	highlightKeyword(document.body, pattern)
 }
 
