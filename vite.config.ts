@@ -39,7 +39,7 @@ export default defineConfig(async ({ mode }) => ({
         ],
         'run-at': 'document-end',
         updateURL:
-          'https://github.com/mudssky/chatgpt-helper/blob/main/dist/highlight-keywords.user.js',
+          'https://github.com/mudssky/highlight-keywords/blob/main/dist/highlight-keywords.user.js',
       },
       build: {
         externalGlobals: {
