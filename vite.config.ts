@@ -58,4 +58,13 @@ export default defineConfig(async ({ mode }) => ({
       },
     }),
   ],
+  // build: {
+  //   minify: 'terser',
+  //   terserOptions: {
+  //     compress: {
+  //       defaults: false,
+  //       drop_console: true,
+  //     },
+  //   },
+  // },
 }))

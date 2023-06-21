@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         highlight-keywords
 // @namespace    https://github.com/mudssky/highlight-keywords
-// @version      2.0.1
+// @version      2.0.3
 // @author       mudssky
 // @description  高亮关键词,可设置关键词的样式,支持正则匹配
 // @license      MIT
@@ -12,10 +12,10 @@
 // @updateURL    https://github.com/mudssky/highlight-keywords/blob/main/dist/highlight-keywords.user.js
 // @match        *://*/*
 // @exclude      *://element-plus*
-// @require      https://cdn.jsdelivr.net/npm/vue@3.2.47/dist/vue.global.prod.js
+// @require      https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.prod.js
 // @require      data:application/javascript,window.Vue%3DVue%3B
-// @require      https://cdn.jsdelivr.net/npm/element-plus@2.2.35/dist/index.full.min.js
-// @resource     element-plus/dist/index.css  https://cdn.jsdelivr.net/npm/element-plus@2.2.35/dist/index.css
+// @require      https://cdn.jsdelivr.net/npm/element-plus@2.3.7/dist/index.full.min.js
+// @resource     element-plus/dist/index.css  https://cdn.jsdelivr.net/npm/element-plus@2.3.7/dist/index.css
 // @grant        GM_getResourceText
 // @grant        GM_getValue
 // @grant        GM_registerMenuCommand
@@ -24,7 +24,7 @@
 // @run-at       document-end
 // ==/UserScript==
 
-(r=>{const t=document.createElement("style");t.dataset.source="vite-plugin-monkey",t.textContent=r,document.head.append(t)})(" .dialog-footer button[data-v-c7b88900]:first-child{margin-right:10px}*,:before,:after{--tw-border-spacing-x: 0;--tw-border-spacing-y: 0;--tw-translate-x: 0;--tw-translate-y: 0;--tw-rotate: 0;--tw-skew-x: 0;--tw-skew-y: 0;--tw-scale-x: 1;--tw-scale-y: 1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness: proximity;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width: 0px;--tw-ring-offset-color: #fff;--tw-ring-color: rgb(59 130 246 / .5);--tw-ring-offset-shadow: 0 0 #0000;--tw-ring-shadow: 0 0 #0000;--tw-shadow: 0 0 #0000;--tw-shadow-colored: 0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }::backdrop{--tw-border-spacing-x: 0;--tw-border-spacing-y: 0;--tw-translate-x: 0;--tw-translate-y: 0;--tw-rotate: 0;--tw-skew-x: 0;--tw-skew-y: 0;--tw-scale-x: 1;--tw-scale-y: 1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness: proximity;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width: 0px;--tw-ring-offset-color: #fff;--tw-ring-color: rgb(59 130 246 / .5);--tw-ring-offset-shadow: 0 0 #0000;--tw-ring-shadow: 0 0 #0000;--tw-shadow: 0 0 #0000;--tw-shadow-colored: 0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }.min-h-\\[400px\\]{min-height:400px}.filter{filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)} ");
+(r=>{const t=document.createElement("style");t.dataset.source="vite-plugin-monkey",t.textContent=r,document.head.append(t)})(" .dialog-footer button[data-v-28f14f17]:first-child{margin-right:10px}*,:before,:after{--tw-border-spacing-x: 0;--tw-border-spacing-y: 0;--tw-translate-x: 0;--tw-translate-y: 0;--tw-rotate: 0;--tw-skew-x: 0;--tw-skew-y: 0;--tw-scale-x: 1;--tw-scale-y: 1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness: proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width: 0px;--tw-ring-offset-color: #fff;--tw-ring-color: rgb(59 130 246 / .5);--tw-ring-offset-shadow: 0 0 #0000;--tw-ring-shadow: 0 0 #0000;--tw-shadow: 0 0 #0000;--tw-shadow-colored: 0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }::backdrop{--tw-border-spacing-x: 0;--tw-border-spacing-y: 0;--tw-translate-x: 0;--tw-translate-y: 0;--tw-rotate: 0;--tw-skew-x: 0;--tw-skew-y: 0;--tw-scale-x: 1;--tw-scale-y: 1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness: proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width: 0px;--tw-ring-offset-color: #fff;--tw-ring-color: rgb(59 130 246 / .5);--tw-ring-offset-shadow: 0 0 #0000;--tw-ring-shadow: 0 0 #0000;--tw-shadow: 0 0 #0000;--tw-shadow-colored: 0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }.min-h-\\[400px\\]{min-height:400px}.filter{filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)} ");
 
 (function (vue, ElementPlus) {
   'use strict';
@@ -106,6 +106,12 @@
         pagesize: "条/页",
         total: "共 {total} 条",
         pageClassifier: "页",
+        page: "页",
+        prev: "上一页",
+        next: "下一页",
+        currentPage: "第 {pager} 页",
+        prevPages: "向前 {pager} 页",
+        nextPages: "向后 {pager} 页",
         deprecationWarning: "你使用了一些已被废弃的用法，请参考 el-pagination 的官方文档"
       },
       messagebox: {
@@ -150,11 +156,10 @@
       }
     }
   };
-  var monkeyWindow = window;
-  var GM_setValue = /* @__PURE__ */ (() => monkeyWindow.GM_setValue)();
-  var GM_registerMenuCommand = /* @__PURE__ */ (() => monkeyWindow.GM_registerMenuCommand)();
-  var GM_setClipboard = /* @__PURE__ */ (() => monkeyWindow.GM_setClipboard)();
-  var GM_getValue = /* @__PURE__ */ (() => monkeyWindow.GM_getValue)();
+  var _GM_getValue = /* @__PURE__ */ (() => typeof GM_getValue != "undefined" ? GM_getValue : void 0)();
+  var _GM_registerMenuCommand = /* @__PURE__ */ (() => typeof GM_registerMenuCommand != "undefined" ? GM_registerMenuCommand : void 0)();
+  var _GM_setClipboard = /* @__PURE__ */ (() => typeof GM_setClipboard != "undefined" ? GM_setClipboard : void 0)();
+  var _GM_setValue = /* @__PURE__ */ (() => typeof GM_setValue != "undefined" ? GM_setValue : void 0)();
   function highlightKeyword(node, pattern, index) {
     var _a;
     let exposeCount = 0;
@@ -223,10 +228,10 @@
     const pattern = new RegExp(wordMatchString, "i");
     return [pattern, wholePattern];
   }
+  const configName = "hightlight-config";
   const _sfc_main$1 = /* @__PURE__ */ vue.defineComponent({
     __name: "index",
     setup(__props) {
-      const configName = "hightlight-config";
       const ruleFormRef = vue.ref();
       const dialogVisible = vue.ref(false);
       const ruleList = vue.ref([]);
@@ -248,7 +253,6 @@
 	`
       });
       const matchedRuleList = vue.computed(() => {
-        console.log({ "fil": ruleList.value });
         return ruleList.value.filter((rule) => {
           var urlPattern = new RegExp(rule.matchUrl);
           return urlPattern.test(window.location.href);
@@ -275,12 +279,11 @@
         }
       }
       function handleCopyJson() {
-        GM_setClipboard(form.configJson, "text");
+        _GM_setClipboard(form.configJson, "text");
       }
       function loadRuleList() {
-        const vv = GM_getValue(configName, []);
+        const vv = _GM_getValue(configName, []);
         ruleList.value = vv;
-        console.log(vv);
         form.configJson = JSON.stringify(ruleList.value);
       }
       function handleOpenPanel() {
@@ -312,19 +315,16 @@
       }
       async function handleUpdateConfig() {
         var _a;
-        await ((_a = ruleFormRef.value) == null ? void 0 : _a.validate(
-          (valid2, fields) => {
-            if (valid2) {
-              console.log("submit!");
-            } else {
-              console.log("error submit!", fields);
-            }
+        await ((_a = ruleFormRef.value) == null ? void 0 : _a.validate((valid2, fields) => {
+          if (valid2) {
+            console.log("submit!");
+          } else {
+            console.log("error submit!", fields);
           }
-        ));
+        }));
         let list;
         try {
           list = JSON.parse(form.configJson);
-          console.log({ list });
         } catch (error) {
           ElementPlus.ElMessage({
             type: "warning",
@@ -342,7 +342,7 @@
         }
         ruleList.value = list;
         updateHighlightStyle(form.highlightStyle);
-        GM_setValue(configName, list);
+        _GM_setValue(configName, list);
         highlightMatchedKeywords();
         ElementPlus.ElMessage({
           type: "success",
@@ -364,7 +364,7 @@
           loadGlobalStyle();
           highlightMatchedKeywords();
         }
-        GM_registerMenuCommand("打开配置面板", handleOpenPanel);
+        _GM_registerMenuCommand("打开配置面板", handleOpenPanel);
       });
       return (_ctx, _cache) => {
         const _component_el_input = vue.resolveComponent("el-input");
@@ -462,7 +462,7 @@
     }
     return target;
   };
-  const app$1 = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-c7b88900"]]);
+  const app$1 = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-28f14f17"]]);
   const cssLoader = (e) => {
     const t = GM_getResourceText(e), o = document.createElement("style");
     return o.innerText = t, document.head.append(o), t;
