@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         highlight-keywords
 // @namespace    https://github.com/mudssky/highlight-keywords
-// @version      2.0.2
+// @version      2.0.3
 // @author       mudssky
 // @description  高亮关键词,可设置关键词的样式,支持正则匹配
 // @license      MIT
@@ -24,7 +24,7 @@
 // @run-at       document-end
 // ==/UserScript==
 
-(r=>{const t=document.createElement("style");t.dataset.source="vite-plugin-monkey",t.textContent=r,document.head.append(t)})(" .dialog-footer button[data-v-c7b88900]:first-child{margin-right:10px}*,:before,:after{--tw-border-spacing-x: 0;--tw-border-spacing-y: 0;--tw-translate-x: 0;--tw-translate-y: 0;--tw-rotate: 0;--tw-skew-x: 0;--tw-skew-y: 0;--tw-scale-x: 1;--tw-scale-y: 1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness: proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width: 0px;--tw-ring-offset-color: #fff;--tw-ring-color: rgb(59 130 246 / .5);--tw-ring-offset-shadow: 0 0 #0000;--tw-ring-shadow: 0 0 #0000;--tw-shadow: 0 0 #0000;--tw-shadow-colored: 0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }::backdrop{--tw-border-spacing-x: 0;--tw-border-spacing-y: 0;--tw-translate-x: 0;--tw-translate-y: 0;--tw-rotate: 0;--tw-skew-x: 0;--tw-skew-y: 0;--tw-scale-x: 1;--tw-scale-y: 1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness: proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width: 0px;--tw-ring-offset-color: #fff;--tw-ring-color: rgb(59 130 246 / .5);--tw-ring-offset-shadow: 0 0 #0000;--tw-ring-shadow: 0 0 #0000;--tw-shadow: 0 0 #0000;--tw-shadow-colored: 0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }.min-h-\\[400px\\]{min-height:400px}.filter{filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)} ");
+(r=>{const t=document.createElement("style");t.dataset.source="vite-plugin-monkey",t.textContent=r,document.head.append(t)})(" .dialog-footer button[data-v-28f14f17]:first-child{margin-right:10px}*,:before,:after{--tw-border-spacing-x: 0;--tw-border-spacing-y: 0;--tw-translate-x: 0;--tw-translate-y: 0;--tw-rotate: 0;--tw-skew-x: 0;--tw-skew-y: 0;--tw-scale-x: 1;--tw-scale-y: 1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness: proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width: 0px;--tw-ring-offset-color: #fff;--tw-ring-color: rgb(59 130 246 / .5);--tw-ring-offset-shadow: 0 0 #0000;--tw-ring-shadow: 0 0 #0000;--tw-shadow: 0 0 #0000;--tw-shadow-colored: 0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }::backdrop{--tw-border-spacing-x: 0;--tw-border-spacing-y: 0;--tw-translate-x: 0;--tw-translate-y: 0;--tw-rotate: 0;--tw-skew-x: 0;--tw-skew-y: 0;--tw-scale-x: 1;--tw-scale-y: 1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness: proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width: 0px;--tw-ring-offset-color: #fff;--tw-ring-color: rgb(59 130 246 / .5);--tw-ring-offset-shadow: 0 0 #0000;--tw-ring-shadow: 0 0 #0000;--tw-shadow: 0 0 #0000;--tw-shadow-colored: 0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }.min-h-\\[400px\\]{min-height:400px}.filter{filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)} ");
 
 (function (vue, ElementPlus) {
   'use strict';
@@ -253,7 +253,6 @@
 	`
       });
       const matchedRuleList = vue.computed(() => {
-        console.log({ "fil": ruleList.value });
         return ruleList.value.filter((rule) => {
           var urlPattern = new RegExp(rule.matchUrl);
           return urlPattern.test(window.location.href);
@@ -285,7 +284,6 @@
       function loadRuleList() {
         const vv = _GM_getValue(configName, []);
         ruleList.value = vv;
-        console.log(vv);
         form.configJson = JSON.stringify(ruleList.value);
       }
       function handleOpenPanel() {
@@ -317,19 +315,16 @@
       }
       async function handleUpdateConfig() {
         var _a;
-        await ((_a = ruleFormRef.value) == null ? void 0 : _a.validate(
-          (valid2, fields) => {
-            if (valid2) {
-              console.log("submit!");
-            } else {
-              console.log("error submit!", fields);
-            }
+        await ((_a = ruleFormRef.value) == null ? void 0 : _a.validate((valid2, fields) => {
+          if (valid2) {
+            console.log("submit!");
+          } else {
+            console.log("error submit!", fields);
           }
-        ));
+        }));
         let list;
         try {
           list = JSON.parse(form.configJson);
-          console.log({ list });
         } catch (error) {
           ElementPlus.ElMessage({
             type: "warning",
@@ -467,7 +462,7 @@
     }
     return target;
   };
-  const app$1 = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-c7b88900"]]);
+  const app$1 = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-28f14f17"]]);
   const cssLoader = (e) => {
     const t = GM_getResourceText(e), o = document.createElement("style");
     return o.innerText = t, document.head.append(o), t;
@@ -493,10 +488,6 @@
     }
   });
   const app = vue.createApp(_sfc_main);
-  {
-    console.log = function() {
-    };
-  }
   const appContainer = (() => {
     const app2 = document.createElement("div");
     document.documentElement.append(app2);
