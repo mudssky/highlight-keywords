@@ -493,6 +493,10 @@
     }
   });
   const app = vue.createApp(_sfc_main);
+  {
+    console.log = function() {
+    };
+  }
   const appContainer = (() => {
     const app2 = document.createElement("div");
     document.documentElement.append(app2);

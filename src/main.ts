@@ -3,8 +3,7 @@ import App from './App.vue'
 const app = createApp(App)
 import ElementPlus from 'element-plus'
 
-// if (import.meta.env.MODE === 'production') {
-if (import.meta.env.MODE === 'development') {
+if (import.meta.env.MODE === 'production') {
   console.log = function () {}
 }
 const appContainer = (() => {
