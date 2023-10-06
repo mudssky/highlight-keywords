@@ -3,7 +3,7 @@
   "author": "mudssky",
   "license": "MIT",
   "private": true,
-  "version": "2.0.3",
+  "version": "2.0.4",
   "type": "module",
   "homepage": "https://github.com/mudssky/highlight-keywords",
   "description": "高亮关键词,可设置关键词的样式,支持正则匹配",

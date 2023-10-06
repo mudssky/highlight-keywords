@@ -1,41 +1,25 @@
 <template>
-  <el-dialog
-    v-model="dialogVisible"
-    title="配置面板"
-    width="30%"
-    :before-close="handleClose"
-    class="min-h-[400px]"
-  >
+  <el-dialog v-model="dialogVisible" title="配置面板" width="30%" :before-close="handleClose" class="min-h-[400px]">
     <el-form :model="form" ref="ruleFormRef">
-      <el-form-item
-        label="高亮样式"
-        prop="highlightStyle"
-        :rules="[
-          {
-            required: true,
-            whitespace: true,
-            message: '请输入高亮样式',
-            trigger: 'change',
-          },
-        ]"
-      >
+      <el-form-item label="高亮样式" prop="highlightStyle" :rules="[
+        {
+          required: true,
+          whitespace: true,
+          message: '请输入高亮样式',
+          trigger: 'change',
+        },
+      ]">
         <el-input v-model="form.highlightStyle" />
       </el-form-item>
       <el-form-item label="配置">
-        <el-input
-          v-model="form.configJson"
-          :placeholder="form.placeholder"
-          type="textarea"
-          :autosize="{ minRows: 5, maxRows: 10 }"
-        />
+        <el-input v-model="form.configJson" :placeholder="form.placeholder" type="textarea"
+          :autosize="{ minRows: 5, maxRows: 10 }" />
       </el-form-item>
     </el-form>
     <el-row justify="end">
       <el-space>
         <el-button @click="handleCopyJson">复制json</el-button>
-        <el-button @click="handleUpdateConfig" type="primary"
-          >更新配置</el-button
-        >
+        <el-button @click="handleUpdateConfig" type="primary">更新配置</el-button>
       </el-space>
     </el-row>
   </el-dialog>
@@ -48,7 +32,7 @@ import {
   GM_setClipboard,
   GM_setValue,
 } from '$'
-import { computed, onMounted, reactive, ref } from 'vue'
+import { computed, onMounted, reactive, readonly, ref } from 'vue'
 import { ElMessage, FormInstance } from 'element-plus'
 import {
   cleanKeywords,
@@ -156,20 +140,21 @@ function handleClose() {
  * ajv库打包体积太大了,改用手动校验了
  * @param configList
  */
-function validateConfig(configList: any): [boolean, string] {
-  let errorMessage = ''
+function validateConfig(configList: RuleItem[]): [boolean, string] {
+
+  const res: [boolean, string] = [false, '配置项格式不对']
   if (!Array.isArray(configList)) {
-    return [false, errorMessage]
+    return res
   }
   if (
     configList.some((item) => {
       return typeof item !== 'object'
     })
   ) {
-    errorMessage = '配置项格式不对'
-    return [false, errorMessage]
+    return res
   }
-  for (const property of ['keywords', 'matchUrl']) {
+  // 校验关键词
+  for (const property of ['keywords', 'matchUrl'] as const) {
     if (
       configList.some((item) => {
         return !(item?.[property] ?? false)
@@ -177,11 +162,35 @@ function validateConfig(configList: any): [boolean, string] {
     ) {
       // 存在不满足的属性
 
-      errorMessage = `${property} 属性是必须的`
-      return [false, errorMessage]
+      res[1] = `${property} 属性是必须的`
+      return res
     }
   }
-  return [true, errorMessage]
+
+  for (const item of configList) {
+    if (typeof item.matchUrl !== 'string') {
+      res[1] = 'matchUrl类型错误'
+      return res
+    }
+    if (!Array.isArray(item.keywords)) {
+      res[1] = 'keywords类型错误'
+      return res
+    }
+    for (const keyword of item.keywords) {
+      if (typeof keyword !== 'string') {
+        res[1] = 'keywords类型错误'
+        return res
+      }
+      if (keyword.trim() === '') {
+        console.log('空字符串');
+
+        res[1] = 'keywords不能为空'
+        return res
+      }
+    }
+  }
+  // 避免空字符串
+  return [true, res[1]]
 }
 
 async function handleUpdateConfig() {
