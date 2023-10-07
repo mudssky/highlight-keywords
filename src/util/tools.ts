@@ -5,7 +5,7 @@
  * @param node
  * @param callback
  */
-// rome-ignore lint/suspicious/noExplicitAny: <explanation>
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 function traverseTextNodes(node: any, callback: any) {
   if (node.nodeType === Node.TEXT_NODE) {
     callback(node)
@@ -24,7 +24,7 @@ function traverseTextNodes(node: any, callback: any) {
  * @returns exposeCount - 匹配次数
  */
 
-// rome-ignore lint/suspicious/noExplicitAny: <explanation>
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export function highlightKeyword(node: any, pattern: RegExp, index?: string) {
   let exposeCount = 0
 
@@ -84,9 +84,9 @@ export function highlightKeyword(node: any, pattern: RegExp, index?: string) {
  * @param index 关键词的组别，即第几组关键词
  */
 
-// rome-ignore lint/suspicious/noExplicitAny: <explanation>
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export function closeHighlight(pattern: any, index: any = null) {
-  // rome-ignore lint/suspicious/noExplicitAny: <explanation>
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   var highlightNodeList: any = document.querySelectorAll('[data-highlight=yes]')
   for (var n = 0; n < highlightNodeList.length; n++) {
     const dataset = highlightNodeList[n].dataset
