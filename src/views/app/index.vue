@@ -53,7 +53,8 @@ import { ElMessage, FormInstance } from 'element-plus'
 import {
   cleanKeywords,
   closeHighlight,
-  highlightKeyword,
+  highlightKeywords,
+  initHighlighter,
 } from '../../util/tools'
 
 interface RuleItem {
@@ -119,10 +120,10 @@ const matchedKeywords = computed(() => {
 // }
 
 /**
- * 通过属性选择器实现高亮
+ * 通过 CSS 类选择器实现高亮（适配 Highlighter 类）
  */
 function generateHighlightStyle(styleText: string) {
-  return `[data-highlight="yes"]{${styleText}}`
+  return `.highlight-keywords{${styleText}}`
 }
 /**
  * 组件挂载时，加载高亮的style标签
@@ -249,7 +250,7 @@ async function handleUpdateConfig() {
   ruleList.value = list
   updateHighlightStyle(form.highlightStyle)
   GM_setValue(configName, list)
-  highlightMatchedKeywords()
+  await highlightMatchedKeywords()
   ElMessage({
     type: 'success',
     message: '配置更新成功',
@@ -257,18 +258,22 @@ async function handleUpdateConfig() {
   handleClose()
 }
 
-function highlightMatchedKeywords() {
+async function highlightMatchedKeywords() {
   console.log({ matchedKeywords: matchedKeywords.value })
   if (matchedKeywords.value.length < 1) {
     return
   }
 
-  const [pattern, _] = cleanKeywords(matchedKeywords.value)
-  closeHighlight(document.body, pattern)
-  highlightKeyword(document.body, pattern)
+  try {
+    // 使用新的 highlightKeywords 函数
+    const count = await highlightKeywords(matchedKeywords.value, document.body)
+    console.log(`成功高亮 ${count} 个匹配项`)
+  } catch (error) {
+    console.error('高亮关键词时出错:', error)
+  }
 }
 
-onMounted(() => {
+onMounted(async () => {
   console.log('init')
 
   // 挂载时从本地读取配置
@@ -277,7 +282,9 @@ onMounted(() => {
   // 如果没有匹配到规则列表，不需要加载全局样式
   if (matchedKeywords.value.length > 0) {
     loadGlobalStyle()
-    highlightMatchedKeywords()
+    // 初始化高亮器
+    initHighlighter(document.body)
+    await highlightMatchedKeywords()
   }
   GM_registerMenuCommand('打开配置面板', handleOpenPanel)
 })
