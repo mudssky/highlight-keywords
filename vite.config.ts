@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+
 // elementUi自动引入
 // 改用cdn了,自动引用会增加打包体积
 // import AutoImport from 'unplugin-auto-import/vite'
@@ -43,13 +44,12 @@ export default defineConfig(async ({ mode }) => ({
       },
       build: {
         externalGlobals: {
-          vue: cdn.jsdelivr('Vue', 'dist/vue.global.prod.js').concat(
-            // @ts-ignore
-            await util.fn2dataUrl(() => {
-              // @ts-ignore
-              window.Vue = Vue
-            }),
-          ),
+          vue: cdn
+            .jsdelivr('Vue', 'dist/vue.global.prod.js')
+            .concat(
+              cdn.jsdelivr('', 'lib/index.iife.js')[1]('latest', 'vue-demi'),
+            )
+            .concat(util.dataUrl(';window.Vue=Vue;')),
           'element-plus': cdn.jsdelivr('ElementPlus', 'dist/index.full.min.js'),
         },
         externalResource: {

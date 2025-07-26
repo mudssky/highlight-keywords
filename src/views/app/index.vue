@@ -1,25 +1,41 @@
 <template>
-  <el-dialog v-model="dialogVisible" title="配置面板" width="30%" :before-close="handleClose" class="min-h-[400px]">
+  <el-dialog
+    v-model="dialogVisible"
+    title="配置面板"
+    width="30%"
+    :before-close="handleClose"
+    class="min-h-[400px]"
+  >
     <el-form :model="form" ref="ruleFormRef">
-      <el-form-item label="高亮样式" prop="highlightStyle" :rules="[
-        {
-          required: true,
-          whitespace: true,
-          message: '请输入高亮样式',
-          trigger: 'change',
-        },
-      ]">
+      <el-form-item
+        label="高亮样式"
+        prop="highlightStyle"
+        :rules="[
+          {
+            required: true,
+            whitespace: true,
+            message: '请输入高亮样式',
+            trigger: 'change',
+          },
+        ]"
+      >
         <el-input v-model="form.highlightStyle" />
       </el-form-item>
       <el-form-item label="配置">
-        <el-input v-model="form.configJson" :placeholder="form.placeholder" type="textarea"
-          :autosize="{ minRows: 5, maxRows: 10 }" />
+        <el-input
+          v-model="form.configJson"
+          :placeholder="form.placeholder"
+          type="textarea"
+          :autosize="{ minRows: 5, maxRows: 10 }"
+        />
       </el-form-item>
     </el-form>
     <el-row justify="end">
       <el-space>
         <el-button @click="handleCopyJson">复制json</el-button>
-        <el-button @click="handleUpdateConfig" type="primary">更新配置</el-button>
+        <el-button @click="handleUpdateConfig" type="primary"
+          >更新配置</el-button
+        >
       </el-space>
     </el-row>
   </el-dialog>
@@ -70,8 +86,15 @@ const form = reactive({
 	`,
 })
 const matchedRuleList = computed(() => {
+  // console.log({ ruleList: JSON.parse(form.configJson) })
   return ruleList.value.filter((rule: RuleItem) => {
     var urlPattern = new RegExp(rule.matchUrl)
+    console.log({
+      match: rule.matchUrl,
+      href: window.location.href,
+      isMatch: urlPattern.test(window.location.href),
+    })
+
     return urlPattern.test(window.location.href)
   })
 })
@@ -80,6 +103,8 @@ const matchedKeywords = computed(() => {
   const keywordsLists = matchedRuleList.value.map((item) => {
     return item.keywords
   })
+  console.log({ keywordsLists, matchedRuleList: matchedRuleList.value })
+
   // 展开然后去重
   return [...new Set(keywordsLists.flat())]
 })
@@ -126,6 +151,7 @@ function handleCopyJson() {
 function loadRuleList() {
   // const vv: any = []
   const vv = GM_getValue(configName, [])
+  // console.log({ vv })
   ruleList.value = vv
   form.configJson = JSON.stringify(ruleList.value)
 }
@@ -141,7 +167,6 @@ function handleClose() {
  * @param configList
  */
 function validateConfig(configList: RuleItem[]): [boolean, string] {
-
   const res: [boolean, string] = [false, '配置项格式不对']
   if (!Array.isArray(configList)) {
     return res
@@ -182,7 +207,7 @@ function validateConfig(configList: RuleItem[]): [boolean, string] {
         return res
       }
       if (keyword.trim() === '') {
-        console.log('空字符串');
+        console.log('空字符串')
 
         res[1] = 'keywords不能为空'
         return res
@@ -233,6 +258,7 @@ async function handleUpdateConfig() {
 }
 
 function highlightMatchedKeywords() {
+  console.log({ matchedKeywords: matchedKeywords.value })
   if (matchedKeywords.value.length < 1) {
     return
   }
@@ -243,8 +269,11 @@ function highlightMatchedKeywords() {
 }
 
 onMounted(() => {
+  console.log('init')
+
   // 挂载时从本地读取配置
   loadRuleList()
+  console.log({ matchedKeywords: matchedKeywords.value })
   // 如果没有匹配到规则列表，不需要加载全局样式
   if (matchedKeywords.value.length > 0) {
     loadGlobalStyle()
