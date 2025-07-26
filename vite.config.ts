@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import path from 'path'
 
 // elementUi自动引入
 // 改用cdn了,自动引用会增加打包体积
@@ -12,6 +13,11 @@ import packageJson from './package.json'
 import tailwindcss from '@tailwindcss/vite'
 // https://vitejs.dev/config/
 export default defineConfig(async ({ mode }) => ({
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    },
+  },
   plugins: [
     vue(),
     tailwindcss(),
