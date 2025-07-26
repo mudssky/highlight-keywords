@@ -8,7 +8,7 @@
   "homepage": "https://github.com/mudssky/highlight-keywords",
   "description": "高亮关键词,可设置关键词的样式,支持正则匹配",
   "scripts": {
-    "dev": "vite",
+    "dev": "cross-env DEBUG_MODE=true vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview"
   },
@@ -21,6 +21,7 @@
   "devDependencies": {
     "@biomejs/biome": "2.1.2",
     "@vitejs/plugin-vue": "^6.0.0",
+    "cross-env": "^10.0.0",
     "prettier": "^3.6.2",
     "tailwindcss": "^4.1.11",
     "terser": "^5.43.1",
