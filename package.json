@@ -13,11 +13,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mudssky/jsutils": "^1.27.0",
     "element-plus": "^2.10.4",
     "vue": "^3.5.18"
   },
   "devDependencies": {
     "@biomejs/biome": "2.1.2",
+    "@tailwindcss/postcss": "^4.1.11",
     "@vitejs/plugin-vue": "^6.0.0",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.6",
