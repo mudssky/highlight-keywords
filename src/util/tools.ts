@@ -8,11 +8,13 @@ let globalHighlighter: Highlighter | null = null
  * @param container 容器元素，默认为 document.body
  * @returns 高亮器实例
  */
-export function initHighlighter(container: HTMLElement = document.body): Highlighter {
+export function initHighlighter(
+  container: HTMLElement = document.body,
+): Highlighter {
   if (globalHighlighter) {
     globalHighlighter.remove()
   }
-  
+
   globalHighlighter = new Highlighter(container, {
     highlightTag: 'span',
     highlightClass: 'highlight-keywords',
@@ -24,7 +26,7 @@ export function initHighlighter(container: HTMLElement = document.body): Highlig
     },
     enablePerformanceOptimization: true,
   })
-  
+
   return globalHighlighter
 }
 
@@ -49,10 +51,10 @@ export function getHighlighter(): Highlighter {
 export async function highlightKeyword(
   node: HTMLElement,
   pattern: RegExp | string,
-  index?: string
+  index?: string,
 ): Promise<number> {
   const highlighter = getHighlighter()
-  
+
   // 如果传入的是正则表达式，需要转换为字符串
   let keyword: string
   if (pattern instanceof RegExp) {
@@ -61,7 +63,7 @@ export async function highlightKeyword(
   } else {
     keyword = pattern
   }
-  
+
   try {
     const count = await highlighter.apply(keyword, {
       caseSensitive: false,
@@ -83,7 +85,7 @@ export async function highlightKeyword(
 export function closeHighlight(
   node?: HTMLElement,
   pattern?: RegExp,
-  index?: string
+  index?: string,
 ): void {
   const highlighter = getHighlighter()
   highlighter.remove()
@@ -119,10 +121,10 @@ export function cleanKeywords(keywords: string[]): [RegExp, RegExp] {
  */
 export async function highlightKeywords(
   keywords: string[],
-  container: HTMLElement = document.body
+  container: HTMLElement = document.body,
 ): Promise<number> {
   const highlighter = getHighlighter()
-  
+
   try {
     // 直接使用 Highlighter 的 apply 方法，它原生支持多关键词
     const count = await highlighter.apply(keywords, {
