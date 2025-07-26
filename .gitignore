@@ -9,8 +9,6 @@ lerna-debug.log*
 
 node_modules
 dist/*
-# 发布的文件
-!dist/highlight-keywords.user.js
 dist-ssr
 *.local
 
