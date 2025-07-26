@@ -13,6 +13,16 @@
 - 🌙 **主题切换**：支持明暗主题切换，适应不同使用环境
 - 🔧 **现代技术栈**：基于 Vue 3 + TypeScript + Tailwind CSS + 组合式 API 开发
 
+## UI展示
+
+导航面板
+
+![导航面板](./src/assets/screenshots/nav.png)
+
+配置面板
+
+![配置面板](./src/assets/screenshots/config.png)
+
 ## 安装方法
 
 ### 方法一：从脚本发布页安装（推荐）
