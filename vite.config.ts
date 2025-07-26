@@ -45,6 +45,7 @@ export default defineConfig(async ({ mode }) => ({
           'GM_setClipboard',
           'GM_setValue',
           'GM_getValue',
+          'GM_info',
         ],
         'run-at': 'document-end',
         updateURL:
