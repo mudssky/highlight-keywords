@@ -205,7 +205,7 @@ export function useHighlightApp() {
     }
 
     const highlighter = getHighlighter()
-    highlighter.previous()
+    highlighter.jumpToPreviousOffscreen()
 
     highlightState.currentIndex = highlighter.getCurrentIndex()
     addDebugLog(
@@ -230,8 +230,7 @@ export function useHighlightApp() {
     }
 
     const highlighter = getHighlighter()
-    highlighter.next()
-
+    highlighter.jumpToNextOffscreen()
     highlightState.currentIndex = highlighter.getCurrentIndex()
     addDebugLog(
       debugLogs.value,
