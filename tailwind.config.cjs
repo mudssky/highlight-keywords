@@ -12,5 +12,5 @@ module.exports = {
     preflight: false,
   },
   // 配置tailwind css 的优先级为这个选择器下(也可以用id选择器)的，避免我们用！important无法覆盖
-  // important: '.tailwind',
+  important: '.tailwind',
 }
