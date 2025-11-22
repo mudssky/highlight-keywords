@@ -46,13 +46,21 @@ export interface ShadowContainerResult {
  * app.mount(container)
  */
 export function createShadowContainer(options: ShadowContainerOptions = {}): ShadowContainerResult {
+  const {
+    mode = 'open',
+    hostTag = 'div',
+    attachTo = document.documentElement,
+    containerClass = 'tailwind',
+    containerAttrs = {},
+    styles = [],
+  } = options
+
   // 1) 创建宿主并附加 ShadowRoot
-  const host = document.createElement(options.hostTag ?? 'div')
-  ;(options.attachTo ?? document.documentElement).append(host)
-  const shadow = host.attachShadow({ mode: options.mode ?? 'open' })
+  const host = document.createElement(hostTag)
+  attachTo.append(host)
+  const shadow = host.attachShadow({ mode })
 
   // 2) 处理样式注入：支持 CSSStyleSheet / 字符串 / HTMLStyleElement
-  const styles = options.styles ?? []
   const supportsAdopted = 'adoptedStyleSheets' in Document.prototype && 'replaceSync' in CSSStyleSheet.prototype
   const sheets: CSSStyleSheet[] = []
   for (const s of styles) {
@@ -70,13 +78,11 @@ export function createShadowContainer(options: ShadowContainerOptions = {}): Sha
   if (supportsAdopted && sheets.length) {
     shadow.adoptedStyleSheets = [...shadow.adoptedStyleSheets, ...sheets]
   }
-
+  
   // 3) 创建挂载容器并设置类名/属性
   const container = document.createElement('div')
-  const cls = options.containerClass ?? 'tailwind'
-  if (cls) container.classList.add(cls)
-  const attrs = options.containerAttrs ?? {}
-  for (const k in attrs) container.setAttribute(k, attrs[k])
+  if (containerClass) container.classList.add(containerClass)
+  for (const k in containerAttrs) container.setAttribute(k, containerAttrs[k])
   shadow.appendChild(container)
 
   // 4) 提供卸载方法，符合用户脚本的资源清理规范
