@@ -1,3 +1,10 @@
+## [3.2.3](https://github.com/mudssky/highlight-keywords/compare/v3.2.2...v3.2.3) (2025-11-22)
+
+
+### Bug Fixes
+
+* **样式:** 修复对话框样式在shadow DOM中的显示问题 ([17cc84d](https://github.com/mudssky/highlight-keywords/commit/17cc84d1baf76662288449690c2c5522648960ff))
+
 ## [3.2.2](https://github.com/mudssky/highlight-keywords/compare/v3.2.1...v3.2.2) (2025-11-22)
 
 
