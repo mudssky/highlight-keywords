@@ -6,6 +6,7 @@
     title="🐛 调试信息"
     width="800px"
     :before-close="handleClose"
+    :teleported="false"
     class="debug-dialog"
   >
     <el-tabs :model-value="activeTab" @update:model-value="(value) => $emit('update:activeTab', value as string)" class="debug-tabs">
