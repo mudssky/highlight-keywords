@@ -6,6 +6,7 @@
     title="配置面板"
     width="600px"
     :before-close="handleClose"
+    :teleported="false"
     class="config-dialog"
   >
     <el-form :model="form" label-width="120px" class="space-y-4">
