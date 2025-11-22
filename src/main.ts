@@ -6,7 +6,7 @@ import ElementPlus from 'element-plus'
 
 const appContainer = (() => {
   const app = document.createElement('div')
-
+  app.classList.add('tailwind')
   document.documentElement.append(app)
   return app
 })()
