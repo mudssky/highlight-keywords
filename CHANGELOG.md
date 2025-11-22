@@ -1,3 +1,10 @@
+## [3.2.2](https://github.com/mudssky/highlight-keywords/compare/v3.2.1...v3.2.2) (2025-11-22)
+
+
+### Bug Fixes
+
+* 启用tailwind重要选择器并添加到应用容器 ([6ccf1c7](https://github.com/mudssky/highlight-keywords/commit/6ccf1c7c48d93fff33544bcb9319274215138b2a))
+
 ## [3.2.1](https://github.com/mudssky/highlight-keywords/compare/v3.2.0...v3.2.1) (2025-07-27)
 
 
